@@ -1,9 +1,9 @@
 package br.eti.cvm.gerenciador.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,18 +18,11 @@ public class ListaEmpresasServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BancoDados bancoDados = new BancoDados();
 		
-		List<Empresa> lista = bancoDados.getEmpresas();
+		List<Empresa> listaEmpresas = bancoDados.getEmpresas();
 		
-		PrintWriter saidaHtml = response.getWriter();
-		
-		saidaHtml.println("<html>");
-		saidaHtml.println("<body>");
-		saidaHtml.println("Empresas</br></br>");
-		saidaHtml.println("<ul>");
-		lista.forEach(empresa -> saidaHtml.println("<li>" + empresa.getNome() + "</li>"));
-		saidaHtml.println("</ul>");
-		saidaHtml.println("</body>");
-		saidaHtml.println("</html>");
+		request.setAttribute("listaEmpresas", listaEmpresas);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listaEmpresas.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 }
