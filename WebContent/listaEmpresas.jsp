@@ -10,6 +10,10 @@
 </head>
 <body>
 	<c:if test="${not empty listaEmpresas}">
+		<c:if test="${not empty empresa}">
+	Empresa ${ empresa.nome }, <fmt:formatDate
+				value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" />, cadastrada com sucesso !
+	</c:if>
 	Empresas
 	<br />
 		<ul>
