@@ -1,8 +1,8 @@
 package br.eti.cvm.gerenciador.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +23,9 @@ public class NovaEmpresaServlet extends HttpServlet {
 		BancoDados bancoDados = new BancoDados();
 		bancoDados.adiciona(empresa);
 		
-		PrintWriter saidaHtml = response.getWriter();
-		
-		saidaHtml.println("<html>");
-		saidaHtml.println("<body>");
-		saidaHtml.println("<h1>Empresa " + nomeEmpresa + " cadastrada com sucesso !</h1>");
-		saidaHtml.println("</body>");
-		saidaHtml.println("</html>");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("novaEmpresaCriada.jsp");
+		request.setAttribute("nomeEmpresa", empresa.getNome());
+		requestDispatcher.forward(request, response);
 	}
 
 }
