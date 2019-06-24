@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,8 @@
 </head>
 <body>
 	<c:if test="${not empty empresa}">
-	Empresa ${ nomeEmpresa } cadastrada com sucesso !
+	Empresa ${ empresa.nome }, <fmt:formatDate
+			value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" />, cadastrada com sucesso !
 	</c:if>
 	<c:if test="${empty empresa}">
 	Nenhuma empresa cadastrada !
