@@ -9,13 +9,18 @@
 <title>Gerenciador - Lista Empresas</title>
 </head>
 <body>
+	<c:if test="${not empty listaEmpresas}">
 	Empresas
 	<br />
-	<ul>
-		<c:forEach var="empresa" items="${ listaEmpresas }">
-			<li>${ empresa.nome }, <fmt:formatDate
-					value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy"/></li>
-		</c:forEach>
-	</ul>
+		<ul>
+			<c:forEach var="empresa" items="${ listaEmpresas }">
+				<li>${ empresa.nome },<fmt:formatDate
+						value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" /></li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<c:if test="${empty listaEmpresas}">
+	Nenhuma empresa cadastrada !
+	</c:if>
 </body>
 </html>
