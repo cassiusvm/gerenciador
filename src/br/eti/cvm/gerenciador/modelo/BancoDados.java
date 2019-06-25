@@ -1,4 +1,4 @@
-package br.eti.cvm.gerenciador.servlet;
+package br.eti.cvm.gerenciador.modelo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
