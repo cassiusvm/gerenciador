@@ -19,7 +19,9 @@
 		<ul>
 			<c:forEach var="empresa" items="${ listaEmpresas }">
 				<li>${ empresa.nome },<fmt:formatDate
-						value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" /></li>
+						value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" />
+					<a href="/gerenciador/removeEmpresa?id=${empresa.id}">remove</a>
+				</li>
 			</c:forEach>
 		</ul>
 	</c:if>
