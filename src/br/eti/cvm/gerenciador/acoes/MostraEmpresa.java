@@ -3,7 +3,6 @@ package br.eti.cvm.gerenciador.acoes;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ import br.eti.cvm.gerenciador.modelo.Empresa;
 public class MostraEmpresa  implements AcaoExecutavel {
 	
 	@Override
-	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
@@ -29,8 +28,7 @@ public class MostraEmpresa  implements AcaoExecutavel {
 		request.setAttribute("id", paramId);
 		request.setAttribute("dataAbertura", dataAbertura);
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("formAlteraEmpresa.jsp");
-		requestDispatcher.forward(request, response);
+		return "forward:formAlteraEmpresa.jsp";
 	}
 
 }

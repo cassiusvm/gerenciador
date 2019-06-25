@@ -2,6 +2,7 @@ package br.eti.cvm.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,30 +26,42 @@ public class UnicaEntradaServlet extends HttpServlet {
 		
 		AcaoExecutavel acao=null;
 		
+		String retornoAcao = null;
+		
 		if(paramAcao.equals("ListaEmpresas")) {
 			
 			acao = new ListaEmpresas();
-			acao.executa(request, response);
+			retornoAcao = acao.executa(request, response);
 			
 		} else if(paramAcao.equals("NovaEmpresa")) {
 			
 			acao = new NovaEmpresa();
-			acao.executa(request, response);
+			retornoAcao = acao.executa(request, response);
 			
 		} else if(paramAcao.equals("RemoveEmpresa")) {
 			
 			acao = new RemoveEmpresa();
-			acao.executa(request, response);
+			retornoAcao = acao.executa(request, response);
 			
 		} else if(paramAcao.equals("MostraEmpresa")) {
 			
-			acao = new MostraEmpresa();
-			
-			acao.executa(request, response);
+			acao = new MostraEmpresa();	
+			retornoAcao = acao.executa(request, response);
 		} else if(paramAcao.equals("AlteraEmpresa")) {
 			
 			acao = new AlteraEmpresa();
-			acao.executa(request, response);
+			retornoAcao = acao.executa(request, response);
+		}
+		
+		String[] split = retornoAcao.split(":");
+		String forwardRedirect = split[0];
+		String destino = split[1];
+		
+		if(forwardRedirect.equals("forward")) {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(destino);
+			requestDispatcher.forward(request, response);
+		} else if(forwardRedirect.equals("redirect")) {
+			response.sendRedirect(destino);
 		}
 	}
 

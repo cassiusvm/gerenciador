@@ -14,7 +14,7 @@ import br.eti.cvm.gerenciador.modelo.Empresa;
 public class AlteraEmpresa implements AcaoExecutavel {
 	
 	@Override
-	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paramNnomeEmpresa = request.getParameter("nome");
 		String paramDataAbertura = request.getParameter("dataAbertura");
 		String paramId = request.getParameter("id");
@@ -27,6 +27,6 @@ public class AlteraEmpresa implements AcaoExecutavel {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		empresa.setDataAbertura(LocalDate.parse(paramDataAbertura, formatter));
 		
-		response.sendRedirect("entrada?acao=ListaEmpresas");
+		return "redirect:entrada?acao=ListaEmpresas";
 	}
 }
