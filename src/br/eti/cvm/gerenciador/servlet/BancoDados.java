@@ -31,5 +31,14 @@ public class BancoDados {
 			}
 		}
 	}
+
+	public Empresa buscaEmpresaPorId(Integer id) {
+		for(Empresa empresa : lista) {
+			if(empresa.getId().equals(id))
+				return empresa;
+		}
+		
+		return null;
+	}
 	
 }

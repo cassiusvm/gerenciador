@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/novaEmpresa")
-public class NovaEmpresaServlet extends HttpServlet {
+@WebServlet("/alteraEmpresa")
+public class AlteraEmpresaServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nomeEmpresa = request.getParameter("nome");
-		String dataAbertura = request.getParameter("dataAbertura");
-		
-		Empresa empresa = new Empresa();
-		empresa.setNome(nomeEmpresa);
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		empresa.setDataAbertura(LocalDate.parse(dataAbertura, formatter));
+		String paramNnomeEmpresa = request.getParameter("nome");
+		String paramDataAbertura = request.getParameter("dataAbertura");
+		String paramId = request.getParameter("id");
 		
 		BancoDados bancoDados = new BancoDados();
-		bancoDados.adiciona(empresa);
+		Empresa empresa = bancoDados.buscaEmpresaPorId(Integer.valueOf(paramId));
+		
+		empresa.setNome(paramNnomeEmpresa);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		empresa.setDataAbertura(LocalDate.parse(paramDataAbertura, formatter));
 		
 		response.sendRedirect("listaEmpresas");
 		
