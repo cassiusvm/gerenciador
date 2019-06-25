@@ -1,24 +1,20 @@
-package br.eti.cvm.gerenciador.servlet;
+package br.eti.cvm.gerenciador.acoes;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.eti.cvm.gerenciador.modelo.BancoDados;
 import br.eti.cvm.gerenciador.modelo.Empresa;
 
-@WebServlet("/listaEmpresas")
-public class ListaEmpresasServlet extends HttpServlet {
+public class ListaEmpresas  implements AcaoExecutavel {
 	
-	private static final long serialVersionUID = 1L;
-
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BancoDados bancoDados = new BancoDados();
 		
 		List<Empresa> listaEmpresas = bancoDados.getEmpresas();
@@ -27,5 +23,4 @@ public class ListaEmpresasServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("listaEmpresas.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
 }

@@ -1,24 +1,20 @@
-package br.eti.cvm.gerenciador.servlet;
+package br.eti.cvm.gerenciador.acoes;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.eti.cvm.gerenciador.modelo.BancoDados;
 import br.eti.cvm.gerenciador.modelo.Empresa;
 
-@WebServlet("/alteraEmpresa")
-public class AlteraEmpresaServlet extends HttpServlet {
+public class AlteraEmpresa implements AcaoExecutavel {
 	
-	private static final long serialVersionUID = 1L;
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paramNnomeEmpresa = request.getParameter("nome");
 		String paramDataAbertura = request.getParameter("dataAbertura");
 		String paramId = request.getParameter("id");
@@ -31,8 +27,6 @@ public class AlteraEmpresaServlet extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		empresa.setDataAbertura(LocalDate.parse(paramDataAbertura, formatter));
 		
-		response.sendRedirect("listaEmpresas");
-		
+		response.sendRedirect("entrada?acao=ListaEmpresas");
 	}
-
 }
