@@ -9,18 +9,24 @@
 <title>Gerenciador - Lista Empresas</title>
 </head>
 <body>
+	Listagem de Empresas
+	<br />
+	<br />
+	<a href="/gerenciador/entrada?acao=NovaEmpresaForm">Criar Nova
+		Empresa</a>
+	<br />
+	<br />
 	<c:if test="${not empty listaEmpresas}">
 		<c:if test="${not empty empresa}">
 	Empresa ${ empresa.nome }, <fmt:formatDate
 				value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" />, cadastrada com sucesso !
 	</c:if>
-	Empresas
-	<br />
+
 		<ul>
 			<c:forEach var="empresa" items="${ listaEmpresas }">
 				<li>${ empresa.nome },<fmt:formatDate
-						value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" />
-					<a href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}">edita</a>
+						value="${ empresa.javaUtilDate }" pattern="dd/MM/yyyy" /> <a
+					href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}">edita</a>
 					<a href="/gerenciador/entrada?acao=RemoveEmpresa&id=${empresa.id}">remove</a>
 				</li>
 			</c:forEach>
