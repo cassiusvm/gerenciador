@@ -7,11 +7,11 @@
 <title>Gerenciador - Nova Empresa</title>
 </head>
 <body>
+	<c:import url="logout-parcial.jsp" />
 	<form action="${ linkServletEntrada }" method="post">
-		Nome: <input type="text" name="nome" /> <br />
-		Data Abertura: <input type="text" name="dataAbertura" /> <br />
-		<input type="hidden" name="acao" value="NovaEmpresa" />
-		<input type="submit" />
+		Nome: <input type="text" name="nome" /> <br /> Data Abertura: <input
+			type="text" name="dataAbertura" /> <br /> <input type="hidden"
+			name="acao" value="NovaEmpresa" /> <input type="submit" />
 	</form>
 </body>
 </html>

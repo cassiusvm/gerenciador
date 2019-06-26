@@ -9,8 +9,9 @@
 <title>Gerenciador - Lista Empresas</title>
 </head>
 <body>
-	Usu&aacute;rio Logado: <c:out value="${usuarioLogado.login}" />
-	<br />
+	Usu&aacute;rio Logado:
+	<c:out value="${usuarioLogado.login}" />
+	<c:import url="logout-parcial.jsp" />
 	<br /> Listagem de Empresas
 	<br />
 	<br />
