@@ -1,4 +1,4 @@
-package br.eti.cvm.gerenciador.acoes;
+package br.eti.cvm.gerenciador.acao;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -11,22 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import br.eti.cvm.gerenciador.modelo.BancoDados;
 import br.eti.cvm.gerenciador.modelo.Empresa;
 
-public class AlteraEmpresa implements AcaoExecutavel {
+public class NovaEmpresa  implements AcaoExecutavel {
 	
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String paramNnomeEmpresa = request.getParameter("nome");
-		String paramDataAbertura = request.getParameter("dataAbertura");
-		String paramId = request.getParameter("id");
+		String nomeEmpresa = request.getParameter("nome");
+		String dataAbertura = request.getParameter("dataAbertura");
 		
-		BancoDados bancoDados = new BancoDados();
-		Empresa empresa = bancoDados.buscaEmpresaPorId(Integer.valueOf(paramId));
-		
-		empresa.setNome(paramNnomeEmpresa);
+		Empresa empresa = new Empresa();
+		empresa.setNome(nomeEmpresa);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		empresa.setDataAbertura(LocalDate.parse(paramDataAbertura, formatter));
+		empresa.setDataAbertura(LocalDate.parse(dataAbertura, formatter));
+		
+		BancoDados bancoDados = new BancoDados();
+		bancoDados.adiciona(empresa);
 		
 		return "redirect:entrada?acao=ListaEmpresas";
 	}
+
 }

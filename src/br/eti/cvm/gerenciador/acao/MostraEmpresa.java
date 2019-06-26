@@ -1,4 +1,4 @@
-package br.eti.cvm.gerenciador.acoes;
+package br.eti.cvm.gerenciador.acao;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

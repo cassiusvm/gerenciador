@@ -1,6 +1,8 @@
 package br.eti.cvm.gerenciador.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,64 +11,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.eti.cvm.gerenciador.acoes.AcaoExecutavel;
-import br.eti.cvm.gerenciador.acoes.AlteraEmpresa;
-import br.eti.cvm.gerenciador.acoes.ListaEmpresas;
-import br.eti.cvm.gerenciador.acoes.MostraEmpresa;
-import br.eti.cvm.gerenciador.acoes.NovaEmpresa;
-import br.eti.cvm.gerenciador.acoes.NovaEmpresaForm;
-import br.eti.cvm.gerenciador.acoes.RemoveEmpresa;
+import br.eti.cvm.gerenciador.acao.AcaoExecutavel;
 
 @WebServlet("/entrada")
 public class UnicaEntradaServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String paramAcao = request.getParameter("acao");
-		
-		AcaoExecutavel acao=null;
-		
-		String retornoAcao = null;
-		
-		if(paramAcao.equals("ListaEmpresas")) {
-			
-			acao = new ListaEmpresas();
-			retornoAcao = acao.executa(request, response);
-			
-		} else if(paramAcao.equals("NovaEmpresa")) {
-			
-			acao = new NovaEmpresa();
-			retornoAcao = acao.executa(request, response);
-			
-		} else if(paramAcao.equals("NovaEmpresaForm")) {
-			
-			acao = new NovaEmpresaForm();
-			retornoAcao = acao.executa(request, response);
-			
-		} else if(paramAcao.equals("RemoveEmpresa")) {
-			
-			acao = new RemoveEmpresa();
-			retornoAcao = acao.executa(request, response);
-			
-		} else if(paramAcao.equals("MostraEmpresa")) {
-			
-			acao = new MostraEmpresa();	
-			retornoAcao = acao.executa(request, response);
-		} else if(paramAcao.equals("AlteraEmpresa")) {
-			
-			acao = new AlteraEmpresa();
-			retornoAcao = acao.executa(request, response);
+
+		AcaoExecutavel acao = null;
+
+		try {
+			String nomeDaClasse = "br.eti.cvm.gerenciador.acao." + paramAcao;
+			Class<?> classe = Class.forName(nomeDaClasse);
+			Constructor<?> construtor = classe.getConstructor();
+			acao = (AcaoExecutavel) construtor.newInstance();
+		} catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
+			throw new ServletException(e);
 		}
-		
+
+		String retornoAcao = acao.executa(request, response);
+
 		String[] split = retornoAcao.split(":");
 		String forwardRedirect = split[0];
 		String destino = split[1];
-		
-		if(forwardRedirect.equals("forward")) {
+
+		if (forwardRedirect.equals("forward")) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/view/" + destino);
 			requestDispatcher.forward(request, response);
-		} else if(forwardRedirect.equals("redirect")) {
+		} else if (forwardRedirect.equals("redirect")) {
 			response.sendRedirect(destino);
 		}
 	}
