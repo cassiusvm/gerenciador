@@ -1,5 +1,6 @@
 package br.eti.cvm.gerenciador.modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,16 +13,28 @@ public class BancoDados {
 	private static Integer chaveSequencial=1;
 	
 	static {
-		Usuario u1 = new Usuario();
-		u1.setLogin("cassius");
-		u1.setSenha("12345");
-		listaUsuarios.add(u1);
+		Empresa empresa = new Empresa();
+		empresa.setId(chaveSequencial++);
+		empresa.setNome("Apache Software Foundation");
+		empresa.setDataAbertura(LocalDate.parse("1999-06-01"));
+		lista.add(empresa);
+		
+		empresa = new Empresa();
+		empresa.setId(chaveSequencial++);
+		empresa.setNome("Twitter");
+		empresa.setDataAbertura(LocalDate.parse("2006-07-15"));
+		lista.add(empresa);
+		
+		Usuario usuario = new Usuario();
+		usuario.setLogin("cassius");
+		usuario.setSenha("12345");
+		listaUsuarios.add(usuario);
 		
 		
-		Usuario u2 = new Usuario();
-		u2.setLogin("danielli");
-		u2.setSenha("12345");
-		listaUsuarios.add(u2);
+		usuario = new Usuario();
+		usuario.setLogin("danielli");
+		usuario.setSenha("12345");
+		listaUsuarios.add(usuario);
 	}
 	
 	public void adiciona(Empresa empresa) {
