@@ -9,7 +9,9 @@
 <title>Gerenciador - Lista Empresas</title>
 </head>
 <body>
-	Listagem de Empresas
+	Usu&aacute;rio Logado: <c:out value="${usuarioLogado.login}" />
+	<br />
+	<br /> Listagem de Empresas
 	<br />
 	<br />
 	<a href="/gerenciador/entrada?acao=NovaEmpresaForm">Criar Nova

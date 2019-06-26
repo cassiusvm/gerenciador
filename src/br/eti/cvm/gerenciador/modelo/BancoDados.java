@@ -15,10 +15,12 @@ public class BancoDados {
 		Usuario u1 = new Usuario();
 		u1.setLogin("cassius");
 		u1.setSenha("12345");
+		listaUsuarios.add(u1);
+		
+		
 		Usuario u2 = new Usuario();
 		u2.setLogin("danielli");
 		u2.setSenha("12345");
-		listaUsuarios.add(u1);
 		listaUsuarios.add(u2);
 	}
 	
