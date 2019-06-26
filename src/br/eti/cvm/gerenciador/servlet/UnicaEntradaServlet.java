@@ -14,6 +14,7 @@ import br.eti.cvm.gerenciador.acoes.AlteraEmpresa;
 import br.eti.cvm.gerenciador.acoes.ListaEmpresas;
 import br.eti.cvm.gerenciador.acoes.MostraEmpresa;
 import br.eti.cvm.gerenciador.acoes.NovaEmpresa;
+import br.eti.cvm.gerenciador.acoes.NovaEmpresaForm;
 import br.eti.cvm.gerenciador.acoes.RemoveEmpresa;
 
 @WebServlet("/entrada")
@@ -38,6 +39,11 @@ public class UnicaEntradaServlet extends HttpServlet {
 			acao = new NovaEmpresa();
 			retornoAcao = acao.executa(request, response);
 			
+		} else if(paramAcao.equals("NovaEmpresaForm")) {
+			
+			acao = new NovaEmpresaForm();
+			retornoAcao = acao.executa(request, response);
+			
 		} else if(paramAcao.equals("RemoveEmpresa")) {
 			
 			acao = new RemoveEmpresa();
@@ -58,7 +64,7 @@ public class UnicaEntradaServlet extends HttpServlet {
 		String destino = split[1];
 		
 		if(forwardRedirect.equals("forward")) {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(destino);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/view/" + destino);
 			requestDispatcher.forward(request, response);
 		} else if(forwardRedirect.equals("redirect")) {
 			response.sendRedirect(destino);
